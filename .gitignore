@@ -3,4 +3,5 @@ data/val
 data/inference_traffic_light_video.mp4
 .idea
 *.zip
-data_patches
+data_patches/train
+data_patches/val

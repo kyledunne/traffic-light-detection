@@ -2,3 +2,4 @@ data/train
 data/val
 data/inference_traffic_light_video.mp4
 .idea
+*.zip

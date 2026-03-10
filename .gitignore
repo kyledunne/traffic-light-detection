@@ -5,3 +5,4 @@ data/inference_traffic_light_video.mp4
 *.zip
 data_patches/train
 data_patches/val
+runs

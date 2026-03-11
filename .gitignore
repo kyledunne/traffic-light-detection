@@ -6,3 +6,5 @@ data/inference_traffic_light_video.mp4
 data_patches/train
 data_patches/val
 runs
+data_patches_filtered/train
+data_patches_filtered/val

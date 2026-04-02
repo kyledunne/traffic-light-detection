@@ -1,10 +1,11 @@
 import os
 import albumentations as A
+from env import Environment
 
 
 class Config:
-    def __init__(self, env, training, verbose=False):
-        self.env = env
+    def __init__(self, env: Environment, training, verbose=False):
+        self.env: Environment = env
         self.verbose = verbose
         self.training = training
         if self.training:

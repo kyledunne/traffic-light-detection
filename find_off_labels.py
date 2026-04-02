@@ -1,27 +1,44 @@
-"""Find all training images that contain a bounding box for the 'off' traffic light class."""
+"""Find all images that contain a bounding box for the 'off' traffic light class."""
 
-import os
 from pathlib import Path
 
-LABELS_DIR = Path("data/train/labels")
-IMAGES_DIR = Path("data/train/images")
 OFF_CLASS_ID = "1"
+DATA_DIR = Path("data")
 
-off_images = []
 
-for label_file in sorted(LABELS_DIR.glob("*.txt")):
-    with open(label_file) as f:
-        for line in f:
-            if line.strip().split()[0] == OFF_CLASS_ID:
-                # Find matching image file (could be .jpg, .png, etc.)
-                stem = label_file.stem
-                matches = list(IMAGES_DIR.glob(f"{stem}.*"))
-                if matches:
-                    off_images.append(matches[0].name)
-                else:
-                    off_images.append(f"{stem} (no matching image found)")
-                break
+def _find_off_in_split(labels_dir, images_dir, class_id=OFF_CLASS_ID):
+    """Return (image_paths, label_paths) for all images with the given class in one split."""
+    image_paths = []
+    label_paths = []
+    for label_file in sorted(Path(labels_dir).glob("*.txt")):
+        with open(label_file) as f:
+            for line in f:
+                if line.strip().split()[0] == class_id:
+                    stem = label_file.stem
+                    matches = list(Path(images_dir).glob(f"{stem}.*"))
+                    if matches:
+                        image_paths.append(matches[0])
+                        label_paths.append(label_file)
+                    break
+    return image_paths, label_paths
 
-print(f"Images with 'off' class boxes ({len(off_images)} total):\n")
-for name in off_images:
-    print(f"  {name}")
+
+def find_all_off_images():
+    """Search train and val splits, returning two parallel lists: (image_paths, label_paths)."""
+    all_image_paths = []
+    all_label_paths = []
+    for split in ("train", "val"):
+        imgs, lbls = _find_off_in_split(
+            DATA_DIR / split / "labels",
+            DATA_DIR / split / "images",
+        )
+        all_image_paths.extend(imgs)
+        all_label_paths.extend(lbls)
+    return all_image_paths, all_label_paths
+
+
+if __name__ == "__main__":
+    image_paths, label_paths = find_all_off_images()
+    print(f"Images with 'off' class boxes ({len(image_paths)} total):\n")
+    for img in image_paths:
+        print(f"  {img}")

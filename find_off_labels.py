@@ -3,7 +3,6 @@
 from pathlib import Path
 
 OFF_CLASS_ID = "1"
-DATA_DIR = Path("data")
 
 
 def _find_off_in_split(labels_dir, images_dir, class_id=OFF_CLASS_ID):
@@ -23,14 +22,14 @@ def _find_off_in_split(labels_dir, images_dir, class_id=OFF_CLASS_ID):
     return image_paths, label_paths
 
 
-def find_all_off_images():
+def find_all_off_images(data_dir):
     """Search train and val splits, returning two parallel lists: (image_paths, label_paths)."""
     all_image_paths = []
     all_label_paths = []
     for split in ("train", "val"):
         imgs, lbls = _find_off_in_split(
-            DATA_DIR / split / "labels",
-            DATA_DIR / split / "images",
+            data_dir / split / "labels",
+            data_dir / split / "images",
         )
         all_image_paths.extend(imgs)
         all_label_paths.extend(lbls)
@@ -38,7 +37,7 @@ def find_all_off_images():
 
 
 if __name__ == "__main__":
-    image_paths, label_paths = find_all_off_images()
+    image_paths, label_paths = find_all_off_images(Path("data"))
     print(f"Images with 'off' class boxes ({len(image_paths)} total):\n")
     for img in image_paths:
         print(f"  {img}")

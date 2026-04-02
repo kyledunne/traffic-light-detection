@@ -14,6 +14,7 @@ class Environment:
     patches_val_labels_folder: str
     fixed_val_images_folder: str
     fixed_val_labels_folder: str
+    original_dataset_root_folder: str
     training_output_folder: str
     saved_weights_filepath: str
     video_input_filepath: str
@@ -34,6 +35,7 @@ local_env = Environment(
     patches_val_labels_folder='data_patches_filtered/val/labels/',
     fixed_val_images_folder='data_fixed/val/images/',
     fixed_val_labels_folder='data_fixed/val/labels/',
+    original_dataset_root_folder='data/',
     training_output_folder='data_gen/',
     saved_weights_filepath='data_gen/best.pt',
     video_input_filepath='data/inference_traffic_light_video.mp4',
@@ -50,6 +52,7 @@ kaggle_env = Environment(
     patches_val_labels_folder='/kaggle/input/datasets/kyledunne/traffic-lights-patches-dataset/val/labels/',
     fixed_val_images_folder='/kaggle/input/datasets/kyledunne/traffic-lights-dataset/val/images/',
     fixed_val_labels_folder='/kaggle/input/datasets/kyledunne/traffic-lights-dataset/val/labels/',
+    original_dataset_root_folder='N/A',
     training_output_folder='/kaggle/working/',
     saved_weights_filepath='/kaggle/input/datasets/kyledunne/traffic-lights-yolo-best-weights/best.pt',
     video_input_filepath='/kaggle/input/datasets/kyledunne/traffic-lights-dataset/inference_traffic_light_video.mp4',
@@ -67,6 +70,7 @@ colab_env = Environment(
     patches_val_labels_folder=colab_home_folder + 'data_patches_filtered/val/labels/',
     fixed_val_images_folder=colab_home_folder + 'data_fixed/val/images/',
     fixed_val_labels_folder=colab_home_folder + 'data_fixed/val/labels/',
+    original_dataset_root_folder=colab_home_folder + 'data/',
     training_output_folder=colab_home_folder + 'data_gen/',
     saved_weights_filepath=colab_home_folder + 'data_gen/best.pt',
     video_input_filepath=colab_home_folder + 'data/inference_traffic_light_video.mp4',
